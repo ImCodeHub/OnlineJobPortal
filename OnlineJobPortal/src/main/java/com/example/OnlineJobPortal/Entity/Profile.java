@@ -3,6 +3,9 @@ package com.example.OnlineJobPortal.Entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -34,5 +37,22 @@ public class Profile {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id")
     private User user;
+
+    @Column(nullable = false, updatable = false)
+    private LocalDateTime profileDate;
+
+    @Column(nullable = false)
+    private LocalDateTime updateDate;
+
+    @PrePersist
+    protected void onCreate(){
+        this.profileDate = LocalDateTime.now();
+        this.updateDate = LocalDateTime.now();
+    }
+
+    @PreUpdate
+    protected  void onUpdate(){
+        this.updateDate = LocalDateTime.now();
+    }
 
 }
