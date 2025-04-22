@@ -8,11 +8,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+@CrossOrigin
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/auth/api/v1")
@@ -29,7 +27,7 @@ public class AuthController {
     @PostMapping("login")
     public ResponseEntity<AuthenticationResponse> userLogin(@RequestBody AuthenticationRequest authenticationRequest){
         AuthenticationResponse accessToken = userService.authentication(authenticationRequest);
-        return new ResponseEntity<>(accessToken, HttpStatus.FOUND);
+        return new ResponseEntity<>(accessToken, HttpStatus.OK);
     }
 
     @PostMapping("hr-registration")
