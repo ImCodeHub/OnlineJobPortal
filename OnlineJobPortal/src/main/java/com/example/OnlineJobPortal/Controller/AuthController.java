@@ -32,4 +32,10 @@ public class AuthController {
         return new ResponseEntity<>(accessToken, HttpStatus.FOUND);
     }
 
+    @PostMapping("hr-registration")
+    public ResponseEntity<AuthenticationResponse> HrRegistration(@RequestBody RegisterRequest registerRequest) {
+        AuthenticationResponse accessToken = userService.saveHr(registerRequest);
+        return new ResponseEntity<>(accessToken, HttpStatus.CREATED);
+    }
+
 }

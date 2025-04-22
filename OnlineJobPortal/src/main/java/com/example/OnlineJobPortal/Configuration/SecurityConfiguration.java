@@ -38,7 +38,7 @@ public class SecurityConfiguration {
                         .requestMatchers("/auth/api/v1/*")
                         .permitAll()
                         .requestMatchers("/api/jobSeeker/v1/**").hasRole("JOBSEEKER")
-                        .requestMatchers("/hr/api/**").hasAnyRole("HR","ADMIN")
+                        .requestMatchers("/api/hr/v1/**").hasRole("HR")
                 )
                 // Set session management to stateless (no HTTP session will be used)
                 .sessionManagement(session -> session.sessionCreationPolicy(STATELESS))

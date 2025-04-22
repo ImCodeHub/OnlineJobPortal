@@ -53,7 +53,23 @@ public class UserService {
     public AuthenticationResponse authentication(AuthenticationRequest request) {
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getUserName(), request.getPassword()));
         User user = userRepository.findByEmail(request.getUserName()).orElseThrow(() -> new RuntimeException("User Not Found"));
-        //        generate token with secret (jwt)
+        //generate token with secret (jwt)
+        String jwt = jwtService.generateToken(user);
+        return AuthenticationResponse.builder().accessToken(jwt).build();
+    }
+
+    //    user registration
+    public AuthenticationResponse saveHr(RegisterRequest registerRequest) {
+        User user = User.builder()
+                .firstName(registerRequest.getFirstName())
+                .lastName(registerRequest.getLastName())
+                .email(registerRequest.getEmail())
+                .password(passwordEncoder.encode(registerRequest.getPassword()))
+                .role(Role.valueOf("HR"))
+                .build();
+
+        User savedUser = userRepository.save(user);
+//        generate token with secret (jwt)
         String jwt = jwtService.generateToken(user);
         return AuthenticationResponse.builder().accessToken(jwt).build();
     }

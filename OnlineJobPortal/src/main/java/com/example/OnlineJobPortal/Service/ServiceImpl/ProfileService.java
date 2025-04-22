@@ -4,6 +4,7 @@ import com.example.OnlineJobPortal.Entity.Profile;
 import com.example.OnlineJobPortal.Entity.Qualification;
 import com.example.OnlineJobPortal.Entity.User;
 import com.example.OnlineJobPortal.Repository.ProfileRepository;
+import com.example.OnlineJobPortal.Repository.QualificationRepository;
 import com.example.OnlineJobPortal.Repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,9 @@ public class ProfileService {
     private final UserRepository userRepository;
     @Autowired
     private final ProfileRepository profileRepository;
+
+    @Autowired
+    private final QualificationRepository qualificationRepository;
 
     public String saveProfile(User user, Profile profile) {
 
@@ -43,5 +47,13 @@ public class ProfileService {
             return "you have created your profile";
         }
     }
+
+    public String saveQualification (User user, Qualification qualification){
+        User foundUser = userRepository.findById(user.getId()).orElseThrow(() -> new RuntimeException("User Not Found"));
+        qualification.setUser(foundUser);
+        qualificationRepository.save(qualification);
+        return "Your Qualification has been Added.";
+    }
+
 
 }

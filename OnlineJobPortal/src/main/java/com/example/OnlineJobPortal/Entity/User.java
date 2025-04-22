@@ -40,6 +40,8 @@ public class User implements UserDetails {
         this.dateOfJoining = LocalDateTime.now();
     }
 
+
+    //One user can have Many Qualification
     @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
     private List<Qualification> qualifications = new ArrayList<>();
 

@@ -1,9 +1,15 @@
 package com.example.OnlineJobPortal.Entity;
 
 import jakarta.persistence.*;
+import lombok.*;
 
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 @Entity
-@Table(name="qualifications")
+@Table(name = "qualifications")
 public class Qualification {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,7 +25,7 @@ public class Qualification {
     @Column(nullable = false)
     private double cgpa;
 
-//    many qualifications can belong to the one user
+    //Many qualifications can belong to the One user
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
