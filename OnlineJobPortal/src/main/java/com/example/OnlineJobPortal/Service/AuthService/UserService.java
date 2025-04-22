@@ -1,7 +1,8 @@
-package com.example.OnlineJobPortal.Service;
+package com.example.OnlineJobPortal.Service.AuthService;
 
 import com.example.OnlineJobPortal.Entity.Role;
 import com.example.OnlineJobPortal.Entity.User;
+import com.example.OnlineJobPortal.Exception.CustomerException.*;
 import com.example.OnlineJobPortal.Model.AuthenticationRequest;
 import com.example.OnlineJobPortal.Model.AuthenticationResponse;
 import com.example.OnlineJobPortal.Model.RegisterRequest;
@@ -52,7 +53,7 @@ public class UserService {
     //    user login Authentication
     public AuthenticationResponse authentication(AuthenticationRequest request) {
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getUserName(), request.getPassword()));
-        User user = userRepository.findByEmail(request.getUserName()).orElseThrow(() -> new RuntimeException("User Not Found"));
+        User user = userRepository.findByEmail(request.getUserName()).orElseThrow(() -> new UserNotFoundException("User Not Found by this E-mail: "+ request.getUserName()));
         //generate token with secret (jwt)
         String jwt = jwtService.generateToken(user);
         return AuthenticationResponse.builder().accessToken(jwt).build();

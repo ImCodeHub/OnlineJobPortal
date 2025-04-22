@@ -38,11 +38,14 @@ public class Profile {
     @JoinColumn(name = "user_id")
     private User user;
 
+    private String imageName;
+
     @Column(nullable = false, updatable = false)
     private LocalDateTime profileDate;
 
     @Column(nullable = false)
     private LocalDateTime updateDate;
+
 
     @PrePersist
     protected void onCreate(){

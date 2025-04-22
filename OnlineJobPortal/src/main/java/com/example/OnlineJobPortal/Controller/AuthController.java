@@ -3,7 +3,7 @@ package com.example.OnlineJobPortal.Controller;
 import com.example.OnlineJobPortal.Model.AuthenticationRequest;
 import com.example.OnlineJobPortal.Model.AuthenticationResponse;
 import com.example.OnlineJobPortal.Model.RegisterRequest;
-import com.example.OnlineJobPortal.Service.UserService;
+import com.example.OnlineJobPortal.Service.AuthService.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

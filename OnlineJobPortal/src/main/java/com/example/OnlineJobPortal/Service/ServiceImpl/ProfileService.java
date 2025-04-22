@@ -3,6 +3,7 @@ package com.example.OnlineJobPortal.Service.ServiceImpl;
 import com.example.OnlineJobPortal.Entity.Profile;
 import com.example.OnlineJobPortal.Entity.Qualification;
 import com.example.OnlineJobPortal.Entity.User;
+import com.example.OnlineJobPortal.Exception.CustomerException.*;
 import com.example.OnlineJobPortal.Repository.ProfileRepository;
 import com.example.OnlineJobPortal.Repository.QualificationRepository;
 import com.example.OnlineJobPortal.Repository.UserRepository;
@@ -25,7 +26,7 @@ public class ProfileService {
 
     public String saveProfile(User user, Profile profile) {
 
-        User foundUser = userRepository.findById( user.getId()).orElseThrow(() -> new RuntimeException(("user not found")));
+        User foundUser = userRepository.findById( user.getId()).orElseThrow(() -> new UserNotFoundException("User Not found"));
         Optional<Profile> optionalProfile = profileRepository.findByUserId(foundUser.getId());
         if (optionalProfile.isPresent()) {
             Profile existingProfile = optionalProfile.get();
@@ -38,6 +39,7 @@ public class ProfileService {
             existingProfile.setMobile(profile.getMobile());
             existingProfile.setCurrentCompony(profile.getCurrentCompony());
             existingProfile.setWorkExperience(profile.getWorkExperience());
+            existingProfile.setImageName(profile.getImageName());
 
             profileRepository.save(existingProfile);
             return "your profile has been updated";
@@ -49,7 +51,7 @@ public class ProfileService {
     }
 
     public String saveQualification (User user, Qualification qualification){
-        User foundUser = userRepository.findById(user.getId()).orElseThrow(() -> new RuntimeException("User Not Found"));
+        User foundUser = userRepository.findById(user.getId()).orElseThrow(() -> new UserNotFoundException("User Not Found"));
         qualification.setUser(foundUser);
         qualificationRepository.save(qualification);
         return "Your Qualification has been Added.";
