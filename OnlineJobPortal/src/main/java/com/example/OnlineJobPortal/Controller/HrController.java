@@ -4,6 +4,7 @@ import com.example.OnlineJobPortal.Entity.JobPost;
 import com.example.OnlineJobPortal.Entity.Profile;
 import com.example.OnlineJobPortal.Entity.Qualification;
 import com.example.OnlineJobPortal.Entity.User;
+import com.example.OnlineJobPortal.Model.JobPostByHrDto;
 import com.example.OnlineJobPortal.Service.ServiceImpl.HRService.HrServiceImpl;
 import com.example.OnlineJobPortal.Service.ServiceImpl.ProfileService;
 import lombok.RequiredArgsConstructor;
@@ -38,7 +39,7 @@ public class HrController {
     }
 
     @PostMapping("job-post")
-    public ResponseEntity<String> jobPost(@AuthenticationPrincipal User user, @RequestBody JobPost jobPost){
+    public ResponseEntity<String> jobPost(@AuthenticationPrincipal User user, @RequestBody JobPostByHrDto jobPost){
         String response = hrService.savePost(user, jobPost);
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
