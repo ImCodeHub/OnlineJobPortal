@@ -6,4 +6,9 @@ public class CustomerException {
             super(message);
         }
     }
+    public static class JobPostNotFoundException extends  RuntimeException{
+        public JobPostNotFoundException(String message){
+            super(message);
+        }
+    }
 }

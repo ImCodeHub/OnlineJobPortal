@@ -49,6 +49,9 @@ public class User implements UserDetails {
     @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
     private List<JobPost> jobPosts = new ArrayList<>();
 
+    @OneToMany(mappedBy = "jobSeeker",cascade = CascadeType.ALL)
+    private List<JobApplication> jobApplications = new ArrayList<>();
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return role.getAuthorities();

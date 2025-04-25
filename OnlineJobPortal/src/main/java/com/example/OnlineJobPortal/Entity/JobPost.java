@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
@@ -39,9 +41,12 @@ public class JobPost {
     private JobPostStatus status;
 
     //Many JobPost can belong to One HR
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="hr_id")
     private User user;
+
+    @OneToMany(mappedBy = "jobPost", cascade = CascadeType.ALL)
+    private List<JobApplication> jobApplications = new ArrayList<>();
 
     @Column(nullable = false, updatable = false)
     private LocalDateTime postDate;

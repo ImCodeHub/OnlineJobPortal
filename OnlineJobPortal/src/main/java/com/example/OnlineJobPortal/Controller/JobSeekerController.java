@@ -6,6 +6,7 @@ import com.example.OnlineJobPortal.Entity.User;
 import com.example.OnlineJobPortal.Model.VisibleJobPost;
 import com.example.OnlineJobPortal.Service.ServiceImpl.JobSeekerService.JobSeekerServiceImpl;
 import com.example.OnlineJobPortal.Service.ServiceImpl.ProfileService;
+import com.sun.net.httpserver.HttpsServer;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -50,7 +51,11 @@ public class JobSeekerController {
         return new ResponseEntity<>(jobList, HttpStatus.FOUND);
     }
 
-
+    @PostMapping("apply-to-job/{id}")
+    public ResponseEntity<?> applyJob(@AuthenticationPrincipal User user, @PathVariable Long id){
+        String response = jobSeekerService.applyToJob(user, id);
+        return new ResponseEntity<>(response, HttpStatus.CREATED);
+    }
 
 
 }
