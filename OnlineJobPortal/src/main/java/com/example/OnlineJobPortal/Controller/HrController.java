@@ -5,15 +5,19 @@ import com.example.OnlineJobPortal.Entity.Profile;
 import com.example.OnlineJobPortal.Entity.Qualification;
 import com.example.OnlineJobPortal.Entity.User;
 import com.example.OnlineJobPortal.Model.JobPostByHrDto;
+import com.example.OnlineJobPortal.Model.JobSeekerDto;
 import com.example.OnlineJobPortal.Service.ServiceImpl.HRService.HrServiceImpl;
 import com.example.OnlineJobPortal.Service.ServiceImpl.ProfileService;
 import lombok.RequiredArgsConstructor;
+import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("api/hr/v1")
@@ -42,6 +46,18 @@ public class HrController {
     public ResponseEntity<String> jobPost(@AuthenticationPrincipal User user, @RequestBody JobPostByHrDto jobPost){
         String response = hrService.savePost(user, jobPost);
         return new ResponseEntity<>(response, HttpStatus.CREATED);
+    }
+
+    @GetMapping("get-all-jobPost")
+    public ResponseEntity<?> getAllJobPost(@AuthenticationPrincipal User user){
+        List<JobPost> yourPost = hrService.getYourPost(user.getId());
+        return new ResponseEntity<>(yourPost, HttpStatus.FOUND);
+    }
+
+    @GetMapping("get-applicants/{id}")
+    public ResponseEntity<?>getApplicantList(@PathVariable Long id){
+        List<JobSeekerDto> applicants = hrService.getApplicant(id);
+        return new ResponseEntity<>(applicants, HttpStatus.FOUND);
     }
 
 }

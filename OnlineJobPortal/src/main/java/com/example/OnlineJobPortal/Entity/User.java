@@ -46,7 +46,7 @@ public class User implements UserDetails {
     private List<Qualification> qualifications = new ArrayList<>();
 
     //One HR can have Many job posts.
-    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "hr",cascade = CascadeType.ALL)
     private List<JobPost> jobPosts = new ArrayList<>();
 
     @OneToMany(mappedBy = "jobSeeker",cascade = CascadeType.ALL)

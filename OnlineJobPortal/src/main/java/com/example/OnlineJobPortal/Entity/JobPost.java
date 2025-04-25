@@ -1,5 +1,6 @@
 package com.example.OnlineJobPortal.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -43,9 +44,12 @@ public class JobPost {
     //Many JobPost can belong to One HR
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="hr_id")
-    private User user;
+    @JsonIgnore
+    private User hr;
 
+    //One Post can have Many HR
     @OneToMany(mappedBy = "jobPost", cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<JobApplication> jobApplications = new ArrayList<>();
 
     @Column(nullable = false, updatable = false)

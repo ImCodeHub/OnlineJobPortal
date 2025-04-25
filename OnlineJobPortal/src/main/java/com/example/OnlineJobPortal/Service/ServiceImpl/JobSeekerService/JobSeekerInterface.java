@@ -2,6 +2,7 @@ package com.example.OnlineJobPortal.Service.ServiceImpl.JobSeekerService;
 
 
 
+import com.example.OnlineJobPortal.Entity.JobPost;
 import com.example.OnlineJobPortal.Entity.User;
 import com.example.OnlineJobPortal.Model.VisibleJobPost;
 

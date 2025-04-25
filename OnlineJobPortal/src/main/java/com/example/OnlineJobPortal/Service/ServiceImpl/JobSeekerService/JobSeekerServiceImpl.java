@@ -35,6 +35,7 @@ public class JobSeekerServiceImpl implements JobSeekerInterface {
 
         for (JobPost jobPost : allJobPosts) {
             VisibleJobPost visibleJobPost = VisibleJobPost.builder()
+                    .id(jobPost.getId())
                     .title(jobPost.getTitle())
                     .companyName(jobPost.getCompanyName())
                     .companyLink(jobPost.getCompanyLink())
