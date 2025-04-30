@@ -18,4 +18,14 @@ public class GlobalExceptionHandler {
     public ResponseEntity<?> handleJobPostNotFoundException(JobPostNotFoundException exception, WebRequest webRequest){
         return new ResponseEntity<>(exception.getMessage(), HttpStatus.NOT_FOUND);
     }
+
+    @ExceptionHandler(ProfileNotFoundException.class)
+    public ResponseEntity<?> handleProfileNotFoundException(ProfileNotFoundException ex, WebRequest webRequest){
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(UserAlreadyExistException.class)
+    public ResponseEntity<?> handleUserAlreadyExistException(UserAlreadyExistException ex, WebRequest webRequest){
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.CONFLICT);
+    }
 }
