@@ -11,4 +11,16 @@ public class CustomerException {
             super(message);
         }
     }
+
+    public static class ProfileNotFoundException extends  RuntimeException{
+        public ProfileNotFoundException(String message){
+            super(message);
+        }
+    }
+
+    public static class UserAlreadyExistException extends  RuntimeException{
+        public UserAlreadyExistException(String message){
+            super(message);
+        }
+    }
 }
