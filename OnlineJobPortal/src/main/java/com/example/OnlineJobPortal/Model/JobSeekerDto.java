@@ -9,10 +9,9 @@ import java.util.List;
 @Data
 @Builder
 public class JobSeekerDto {
+    private Long jobSeekerId;
+    private Long jobApplicationId;
     private String fullName;
     private String companyName;
-    private List<Qualification> qualifications;
     private int experience;
-
-
 }

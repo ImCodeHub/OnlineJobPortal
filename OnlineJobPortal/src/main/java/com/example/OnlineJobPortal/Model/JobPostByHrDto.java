@@ -8,6 +8,7 @@ public class JobPostByHrDto {
     private String companyName;
     private String companyLink;
     private String description;
+    private String requiredSkills;
     private String city;
     private String state;
     private String jobType;

@@ -9,6 +9,6 @@ import com.example.OnlineJobPortal.Model.VisibleJobPost;
 import java.util.List;
 
 public interface JobSeekerInterface {
-    public List<VisibleJobPost> getAllJobPostFromDb();
+    public List<VisibleJobPost> getAllJobsWithFilter(String skills, String city, String state, String jobType , int page, int size);
     public String applyToJob(User user,Long jobPostId);
 }

@@ -6,6 +6,7 @@ import com.example.OnlineJobPortal.Entity.Qualification;
 import com.example.OnlineJobPortal.Entity.User;
 import com.example.OnlineJobPortal.Model.JobPostByHrDto;
 import com.example.OnlineJobPortal.Model.JobSeekerDto;
+import com.example.OnlineJobPortal.Model.JobSeekerProfileDto;
 import com.example.OnlineJobPortal.Service.ServiceImpl.HRService.HrServiceImpl;
 import com.example.OnlineJobPortal.Service.ServiceImpl.ProfileService;
 import lombok.RequiredArgsConstructor;
@@ -51,13 +52,32 @@ public class HrController {
     @GetMapping("get-all-jobPost")
     public ResponseEntity<?> getAllJobPost(@AuthenticationPrincipal User user){
         List<JobPost> yourPost = hrService.getYourPost(user.getId());
-        return new ResponseEntity<>(yourPost, HttpStatus.FOUND);
+        return new ResponseEntity<>(yourPost, HttpStatus.OK);
     }
 
-    @GetMapping("get-applicants/{id}")
-    public ResponseEntity<?>getApplicantList(@PathVariable Long id){
-        List<JobSeekerDto> applicants = hrService.getApplicant(id);
-        return new ResponseEntity<>(applicants, HttpStatus.FOUND);
+    // to view applicant on a job post
+    @GetMapping("get-applicants/{jobPostId}")
+    public ResponseEntity<?>getApplicantList(@PathVariable Long jobPostId){
+        List<JobSeekerDto> applicants = hrService.getApplicant(jobPostId);
+        return new ResponseEntity<>(applicants, HttpStatus.OK);
     }
 
+    // to view job seeker profile
+    @GetMapping("get-applicant-profile/{userId}")
+    public ResponseEntity<?>getApplicantProfile(@PathVariable Long userId, @RequestParam Long jobApplicationId){
+        JobSeekerProfileDto jobSeekerProfile = hrService.getJobSeekerProfile(userId, jobApplicationId);
+        return new ResponseEntity<>(jobSeekerProfile, HttpStatus.OK);
+    }
+
+    @PutMapping("reject-applicant/{applicationId}")
+    public ResponseEntity<String> rejectJobSeeker(@PathVariable Long applicationId)  {
+        String response = hrService.rejectJobSeeker(applicationId);
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    @PutMapping("shortlist-applicant/{applicationId}")
+    public ResponseEntity<String> shortlistJobSeeker(@PathVariable Long applicationId)  {
+        String response = hrService.shortlistJobSeeker(applicationId);
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
 }

@@ -46,8 +46,16 @@ public class JobSeekerController {
     }
 
     @GetMapping("all-jobs")
-    public ResponseEntity<List<VisibleJobPost>> getAllJob(){
-        List<VisibleJobPost> jobList = jobSeekerService.getAllJobPostFromDb();
+    public ResponseEntity<List<VisibleJobPost>> getAllJob(
+            @RequestParam(required = false) String skills,
+            @RequestParam(required = false) String city,
+            @RequestParam(required = false) String state,
+            @RequestParam(required = false) String jobType,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue= "10" ) int size
+
+    ){
+        List<VisibleJobPost> jobList = jobSeekerService.getAllJobsWithFilter(skills, city, state, jobType, page,  size);
         return new ResponseEntity<>(jobList, HttpStatus.FOUND);
     }
 

@@ -36,6 +36,9 @@ public class UserService {
 
     //    user registration
     public AuthenticationResponse saveUser(RegisterRequest registerRequest) {
+        userRepository.findByEmail(registerRequest.getEmail()).ifPresent(user -> {
+            throw new UserAlreadyExistException("user Already exist in DB");
+        });
         User user = User.builder()
                 .firstName(registerRequest.getFirstName())
                 .lastName(registerRequest.getLastName())

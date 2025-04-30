@@ -38,6 +38,9 @@ public class JobPost {
     private String salary;
 
     @Column(nullable = false)
+    private String requiredSkills;
+
+    @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private JobPostStatus status;
 

@@ -10,6 +10,9 @@ import com.example.OnlineJobPortal.Repository.JobPostRepository;
 import com.example.OnlineJobPortal.Repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -28,10 +31,12 @@ public class JobSeekerServiceImpl implements JobSeekerInterface {
     private final JobApplicationRepository jobApplicationRepository;
 
     @Override
-    public List<VisibleJobPost> getAllJobPostFromDb() {
+    public List<VisibleJobPost> getAllJobsWithFilter(String skills, String city, String state, String jobType, int page, int size ) {
         List<VisibleJobPost> jobList = new ArrayList<>();
 
-        List<JobPost> allJobPosts = jobPostRepository.findAll();
+        Pageable pageable = PageRequest.of(page, size);
+
+        Page<JobPost> allJobPosts = jobPostRepository.findAllWithFilters(skills, city, state, jobType, pageable);
 
         for (JobPost jobPost : allJobPosts) {
             VisibleJobPost visibleJobPost = VisibleJobPost.builder()
@@ -39,6 +44,7 @@ public class JobSeekerServiceImpl implements JobSeekerInterface {
                     .title(jobPost.getTitle())
                     .companyName(jobPost.getCompanyName())
                     .companyLink(jobPost.getCompanyLink())
+                    .skills(jobPost.getRequiredSkills())
                     .description(jobPost.getDescription())
                     .city(jobPost.getCity())
                     .state(jobPost.getState())

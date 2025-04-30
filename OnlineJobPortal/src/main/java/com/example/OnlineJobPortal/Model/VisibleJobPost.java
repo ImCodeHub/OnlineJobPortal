@@ -11,6 +11,7 @@ public class VisibleJobPost {
     private Long id;
     private String title;
     private String companyName;
+    private String skills;
     private String companyLink;
     private String description;
     private String city;
