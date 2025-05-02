@@ -15,4 +15,5 @@ public interface HrServiceInterface {
     public JobSeekerProfileDto getJobSeekerProfile(Long userId, Long jobApplicationId);
     public String rejectJobSeeker(Long jobApplicationId);
     public String shortlistJobSeeker(Long jobApplicationId);
+    public String inactiveJobPost(Long jobPostId);
 }
