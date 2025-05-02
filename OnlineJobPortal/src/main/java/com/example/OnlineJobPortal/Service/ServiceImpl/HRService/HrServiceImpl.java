@@ -123,5 +123,13 @@ public class HrServiceImpl implements HrServiceInterface {
         return "Job Applicant has Shortlisted.";
     }
 
+    @Override
+    public String inactiveJobPost(Long jobPostId) {
+        JobPost jobPost = jobPostRepository.findById(jobPostId).orElseThrow(() -> new JobPostNotFoundException("job post not found by this ID"));
+        jobPost.setStatus(JobPostStatus.INACTIVE);
+        jobPostRepository.save(jobPost);
+        return "your job post has been Inactive now.";
+    }
+
 
 }
