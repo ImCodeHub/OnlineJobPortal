@@ -80,4 +80,11 @@ public class HrController {
         String response = hrService.shortlistJobSeeker(applicationId);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
+
+    @PutMapping("inactive-jobPost/{id}")
+    public ResponseEntity<String> inactiveThePost(@PathVariable(name = "id") Long jobPostId){
+        String response = hrService.inactiveJobPost(jobPostId);
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
 }
